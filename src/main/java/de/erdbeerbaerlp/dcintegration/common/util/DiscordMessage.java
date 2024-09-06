@@ -91,7 +91,8 @@ public final class DiscordMessage {
      * @param message Message to set
      */
     public void setMessage(final String message) {
-        this.message = message;
+        this.message = DiscordEmojies.emojifyMessage(message);
+
         for (char c : Configuration.instance().messages.charBlacklist) {
             this.message = this.message.replace(c, '\u0000');
         }

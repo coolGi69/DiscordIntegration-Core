@@ -10,7 +10,7 @@ plugins {
 }
 
 //Build variables
-version = "3.1.0-SNAPSHOT"
+version = "3.1.1-SNAPSHOT"
 group = "de.erdbeerbaerlp.dcintegration.common"
 archivesBaseName = "dcintegration-core"
 
@@ -132,6 +132,12 @@ test {
 java {
     withJavadocJar()
     withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
 }
 //Manifest attributes
 jar {
@@ -153,7 +159,7 @@ artifacts {
     archives tasks.shadowJar
 }
 publishing {
- if (project.hasProperty('nexusUser')) { // $GRADLE_USER_HOME/gradle.properties
+ //if (project.hasProperty('nexusUser')) { // $GRADLE_USER_HOME/gradle.properties
     publications {
         maven(MavenPublication) {
             groupId = 'de.erdbeerbaerlp'
@@ -162,6 +168,7 @@ publishing {
         }
     }
     repositories {
+        /*
         maven {
             credentials {// $GRADLE_USER_HOME/gradle.properties
                 username = project.nexusUser
@@ -173,6 +180,7 @@ publishing {
                 url = "https://repo.erdbeerbaerlp.de/repository/maven-releases"
             }
         }
+         */
     }
-    }
+    //}
 }
